@@ -1,47 +1,62 @@
 const db = require("./db");
 
-// Returns all facility records
-const getAll = async () => {
+// Returns all facility records with user sepecified cols
+const getAll = async (customCols) => {
   try {
-    let result = await db.query(`
-      SELECT custom_col.name, custom_col.alias FROM 
-      custom_col JOIN tbl 
-      ON tbl.id = custom_col.tbl_id 
-      where tbl.id = 1
-    `)
-    const cols = result.rows
-
-    console.log(`
-    SELECT id, name, membership_start_date, membership_end_date, employees, is_special
-    ${cols.map((col) => `, custom_cols ->> '${col.name}' AS ${col.alias}`).join("")}
-    FROM facility
-  `);
-
-    result = await db.query(`
+    const result = await db.query(`
       SELECT id, name, membership_start_date, membership_end_date, employees, is_special
-      ${cols.map((col) => `, custom_cols ->> '${col.name}' AS ${col.alias}`).join("")}
-      FROM facility
+      ${customCols.map((col) => `, custom_cols ->> '${col.name}' AS ${col.alias}`).join("")}
+      FROM facility ORDER BY id
     `)
-    console.log(result.rows);
 
     return result.rows
-    
+
   } catch (err) {
     throw new Error(err)
   }
 }
 
-const create = async (body) => {
-  console.log("facility data access layer");
+// Creates a new facility record
+const create = async (payload) => {
   try {
-    const cols = Object.keys(body)
+    const cols = Object.keys(payload)
     const query = `INSERT INTO facility 
       (${cols.map((col) => `${col}`).join(", ")}) 
       VALUES (${cols.map((_, i) => `$${i + 1}`).join(", ")})
     `
-    await db.query(query, Object.values(body))
+    await db.query(query, Object.values(payload))
 
-    return { message: "Category is succesfully created." }
+    return { message: "Facility is succesfully created." }
+
+  } catch (err) {
+    throw new Error(err)
+  }
+}
+
+// Updates a facility record
+const update = async (id, payload) => {
+  try {
+    const cols = Object.keys(payload)
+    const query = `UPDATE facility 
+      SET ${cols.map((col, i) => `${col} = $${i + 1}`).join(", ")} 
+      WHERE id = $${cols.length + 1}
+    `
+    await db.query(query, [...Object.values(payload), id])
+
+    return { message: "Facility is succesfully updated." }
+
+  } catch (err) {
+    throw new Error(err)
+  }
+}
+
+// Updates a facility record
+const removeJsonKey = async (jsonKey) => {
+  try {
+    const query = "UPDATE facility SET custom_cols = custom_cols - $1"
+    await db.query(query, [jsonKey])
+
+    return { message: "Facility column is succesfully deleted." }
 
   } catch (err) {
     throw new Error(err)
@@ -51,5 +66,7 @@ const create = async (body) => {
 
 module.exports = {
   getAll,
-  create
+  create,
+  update,
+  removeJsonKey
 }

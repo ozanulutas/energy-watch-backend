@@ -35,8 +35,22 @@ const create = async (payload) => {
   }
 }
 
+// Deletes a new user specified column
+const remove = async (id) => {
+  try {
+    const query = "DELETE FROM custom_col WHERE id = $1 RETURNING name"
+    const result = await db.query(query, [id])
+
+    return result.rows[0].name
+
+  } catch (err) {
+    throw new Error(err)
+  }
+}
+
 
 module.exports = {
   getByTblId,
-  create
+  create,
+  remove
 }

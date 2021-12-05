@@ -1,4 +1,4 @@
-const { customCol } = require("../db")
+const { customCol, facility } = require("../db")
 
 const getByTblId = async (tblId) => {
   try {
@@ -9,10 +9,24 @@ const getByTblId = async (tblId) => {
   }
 }
 
-const create = async (payload) => {
+const create = async (body) => {
   try {
-    payload.name = `+${payload.name}`
-    return await customCol.create(payload)
+    // @TODO: duplicate kontrolü
+    body.name = `+${body.name}`
+    return await customCol.create(body)
+
+  } catch (err) {
+    throw new Error(err)
+  }
+}
+
+const remove = async (id) => {
+  try {
+    const colName = await customCol.remove(id)
+    console.log(colName);
+    await facility.removeJsonKey(colName)
+
+    return { message: "Custom column is succesfully deleted." }
 
   } catch (err) {
     throw new Error(err)
@@ -22,5 +36,6 @@ const create = async (payload) => {
 
 module.exports = {
   getByTblId,
-  create
+  create,
+  remove,
 }
