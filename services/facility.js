@@ -16,6 +16,7 @@ const create = async (body) => {
   try {
     const custom_cols = {}
 
+    // set custom cols
     for (const col in body) {
       if (col.includes("+")) {
         custom_cols[col] = body[col]

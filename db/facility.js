@@ -2,21 +2,27 @@ const db = require("./db");
 
 // Returns all facility records
 const getAll = async () => {
-  console.log("facility data access layer");
   try {
     let result = await db.query(`
       SELECT custom_col.name, custom_col.alias FROM 
       custom_col JOIN tbl 
       ON tbl.id = custom_col.tbl_id 
-      where tbl.name = 'facility'
+      where tbl.id = 1
     `)
     const cols = result.rows
 
+    console.log(`
+    SELECT id, name, membership_start_date, membership_end_date, employees, is_special
+    ${cols.map((col) => `, custom_cols ->> '${col.name}' AS ${col.alias}`).join("")}
+    FROM facility
+  `);
+
     result = await db.query(`
       SELECT id, name, membership_start_date, membership_end_date, employees, is_special
-      ${cols.map((col) => `, custom_cols ->> '${col.name}' AS ${col.alias}`).join(", ")}
+      ${cols.map((col) => `, custom_cols ->> '${col.name}' AS ${col.alias}`).join("")}
       FROM facility
     `)
+    console.log(result.rows);
 
     return result.rows
     
