@@ -4,7 +4,7 @@ const db = require("./db");
 const getByTblId = async (tblId) => {
   try {
     const result = await db.query(`
-      SELECT custom_col.name, custom_col.alias FROM 
+      SELECT custom_col.name, custom_col.alias, custom_col.type FROM 
       custom_col JOIN tbl 
       ON tbl.id = custom_col.tbl_id 
       where tbl.id = $1
@@ -13,7 +13,6 @@ const getByTblId = async (tblId) => {
     return result.rows
     
   } catch (err) {
-    console.log(err);
     throw new Error(err)
   }
 }

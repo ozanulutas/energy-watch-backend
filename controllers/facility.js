@@ -1,4 +1,5 @@
 const { facility } = require("../services")
+// // const { body, validationResult } = require('express-validator');
 
 // Gets the facility records and sends it as response
 const getAll = async (req, resp) => {
@@ -13,6 +14,10 @@ const getAll = async (req, resp) => {
 
 // Creates a facility record
 const create = async (req, resp) => {
+  // // const errors = validationResult(req);
+  // if (!errors.isEmpty()) {
+  //   return resp.status(400).json({ errors: errors.array() });
+  // }
   try {
     const data = await facility.create(req.body)
     resp.status(201).json({ data })
