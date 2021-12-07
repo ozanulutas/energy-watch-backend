@@ -2,14 +2,30 @@ const { facility, customCol } = require("../db")
 const { prepareCustomColumns } = require("../utils/body")
 
 /**
- * Calls custom cols for facility table and
- * returns all facility records with user sepecified cols
+ * Returns all facility records with user sepecified cols
  * @returns {Promise<array>}
  */
 const getAll = async () => {
   try {
+    // Calls custom cols for facility table
     const customCols = await customCol.getByTblId(1)
     return await facility.getAll(customCols)
+
+  } catch (err) {
+    throw new Error(err)
+  }
+}
+
+/**
+ * Gets a facility record by id
+ * @param {integer} id - Facility record id
+ * @returns {Promise<object>}
+ */
+const getById = async (id) => {
+  try {
+    // Calls custom cols for facility table
+    const customCols = await customCol.getByTblId(1)
+    return await facility.getById(id, customCols)
 
   } catch (err) {
     throw new Error(err)
@@ -68,5 +84,6 @@ module.exports = {
   getAll,
   create,
   update,
-  remove
+  remove,
+  getById
 }

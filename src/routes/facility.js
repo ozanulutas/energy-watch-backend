@@ -31,8 +31,9 @@ const validations = data.map(item => {
 router.post("/", validations, facility.create);
 */
 
-router.post("/", facility.create);
 router.get("/", facility.getAll);
+router.post("/", facility.create);
+router.get("/:id", facility.getById);
 router.put("/:id", facility.update);
 router.delete("/:id", facility.remove);
 

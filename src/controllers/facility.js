@@ -5,7 +5,18 @@ const { facility } = require("../services")
 const getAll = async (req, resp) => {
   try {
     const result = await facility.getAll()
-    resp.status(200).json(result)
+    resp.status(200).json({ data: result })
+
+  } catch (err) {
+    resp.json({ message: err.message })
+  }
+}
+
+// Gets a facility record by id and sends it as response
+const getById = async (req, resp) => {
+  try {
+    const result = await facility.getById(req.params.id)
+    resp.status(200).json({ data: result })
 
   } catch (err) {
     resp.json({ message: err.message })
@@ -53,5 +64,6 @@ module.exports = {
   getAll,
   create,
   update,
-  remove
+  remove,
+  getById,
 }

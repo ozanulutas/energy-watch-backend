@@ -21,6 +21,28 @@ const getAll = async (customCols) => {
 }
 
 /**
+ * 
+ * @param {integer} id - Facility's record id 
+ * @param {array} customCols - Custom column records associated with table
+ * @returns {Promise<object>}
+ */
+const getById = async (id, customCols) => {
+  try {
+    const query = `
+      SELECT id, name, membership_start_date, membership_end_date, employees, is_special
+      ${customCols.map((col) => `, custom_cols ->> '${col.name}' AS ${col.alias}`).join("")}
+      FROM facility WHERE id = $1 ORDER BY id
+    `
+    const result = await db.query(query, [id])
+
+    return result.rows
+
+  } catch (err) {
+    throw new Error(err)
+  }
+}
+
+/**
  * Creates a new facility record
  * @param {object} facility - Facility column name and values to insert
  * @returns {Promise<string>}
@@ -100,6 +122,7 @@ const removeJsonKeys = async (jsonKey) => {
 
 module.exports = {
   getAll,
+  getById,
   create,
   update,
   remove,
