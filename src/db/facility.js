@@ -23,12 +23,6 @@ const getAll = async (customCols) => {
 /**
  * Creates a new facility record
  * @param {object} facility - Facility column name and values to insert
- * @param {string} facility.name - Facility's name
- * @param {date} facility.membership_start_date - Facility's membership start date
- * @param {date} facility.membership_end_date - Facility's membership end date
- * @param {integer} facility.employees - Facility's number of employees
- * @param {boolean} facility.is_special - Facility's special membership state 
- * @param {object} facility.custom_cols - User specificied columns for facility
  * @returns {object}
  */
 const create = async (facility) => {
@@ -51,12 +45,6 @@ const create = async (facility) => {
  * Updates a facility record
  * @param {integer} id - Facility's record id
  * @param {object} facility - Facility column name and values to insert
- * @param {string} facility.name - Facility's name
- * @param {date} facility.membership_start_date - Facility's membership start date
- * @param {date} facility.membership_end_date - Facility's membership end date
- * @param {integer} facility.employees - Facility's number of employees
- * @param {boolean} facility.is_special - Facility's special membership state 
- * @param {object} facility.custom_cols - User specificied columns for facility
  * @returns {object}
  */
 const update = async (id, facility) => {
@@ -75,12 +63,16 @@ const update = async (id, facility) => {
   }
 }
 
+// const remove = async (id) => {
+
+// }
+
 /**
  * Removes all specificed json keys from custom column at facility records
  * @param {string} jsonKey 
  * @returns {object}
  */
-const removeJsonKey = async (jsonKey) => {
+const removeJsonKeys = async (jsonKey) => {
   try {
     const query = "UPDATE facility SET custom_cols = custom_cols - $1"
     await db.query(query, [jsonKey])
@@ -97,5 +89,5 @@ module.exports = {
   getAll,
   create,
   update,
-  removeJsonKey
+  removeJsonKeys
 }

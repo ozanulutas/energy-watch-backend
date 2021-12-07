@@ -45,7 +45,7 @@ const create = async (body) => {
 const remove = async (id) => {
   try {
     const colName = await customCol.remove(id)
-    await facility.removeJsonKey(colName)
+    await facility.removeJsonKeys(colName)
 
     return { message: "Custom column is succesfully deleted." }
 
