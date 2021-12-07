@@ -2,36 +2,30 @@ const router = require("express").Router();
 const { facility } = require("../controllers");
 const vals = require("../middlewares/validations/facility");
 
+// IICE
+// class AsyncRouter {
+void new class {
+  constructor() {
+    this.validations = []
+    this.init()
+  }
 
-// const { body, validationResult } = require('express-validator');
-// const types = {
-//   integer: (name, type) => body(name).isInt().withMessage(`${name} must be ${type}`),
-//   boolean: (name, type) => body(name).isBoolean().withMessage(`${name} must be ${type}`),
-// }
-// data = [
-//   {
-//     "name": "+location",
-//     "alias": "location",
-//     "type": "integer"
-//   },
-//   {
-//     "name": "+price",
-//     "alias": "price",
-//     "type": "boolean"
-//   }
-// ]
-// const validations = data.map(item => {
-//   return types[item.type](item.name, item.type)
-// })
-// console.log(validations);
-// router.post("/", validations, facility.create);
+  async init() {
+    try {
+      this.validations = await vals()
 
+      router.get("/", facility.getAll);
+      router.post("/", this.validations, facility.create);
+      router.get("/:id", facility.getById);
+      router.put("/:id", facility.update);
+      router.delete("/:id", facility.remove);
+    } catch (error) {
+      console.log(error.message);
+    }
+  }
+}
 
-router.get("/", facility.getAll);
-router.post("/", facility.create);
-router.get("/:id", facility.getById);
-router.put("/:id", facility.update);
-router.delete("/:id", facility.remove);
+// new AsyncRouter()
 
 
 module.exports = router;
