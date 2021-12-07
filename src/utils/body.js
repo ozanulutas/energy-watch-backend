@@ -1,7 +1,7 @@
 // Body related helpers
 
 /**
- * Creates a and returns json from custom columns which marked with '+' sign
+ * Creates a custom column object from + sign marked keys and afterwards removes this marked keys
  * @param {object} body 
  * @returns {object}
  */
@@ -9,10 +9,10 @@
 function prepareCustomColumns(body) {
   const customCols = {}
 
-  for (const col in body) {
-    if (col.includes("+")) {
-      customCols[col] = body[col]
-      delete body[col]
+  for (const key in body) {
+    if (key.includes("+")) {
+      customCols[key] = body[key]
+      delete body[key]
     }
   }
   return customCols
