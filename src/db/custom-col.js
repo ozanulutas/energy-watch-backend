@@ -3,7 +3,7 @@ const db = require("./db");
 /**
  * Returns user specified column records by table id
  * @param {int} tblId 
- * @returns {array}
+ * @returns {Promise<array>}
  */
 const getByTblId = async (tblId) => {
   try {
@@ -24,12 +24,7 @@ const getByTblId = async (tblId) => {
 /**
  * Creates a new user specified column
  * @param {object} customCol - Column name and values to insert
- * @param {string} customCol.name - Custom column's name
- * @param {string} customCol.type - Custom column's type
- * @param {string} customCol.alias - Custom column's alias
- * @param {int} customCol.tbl_id - Table id which custom column belongs to
- * @param {string} customCol.user_id - User id which custom column belongs to
- * @returns {object}
+ * @returns {Promise<string>} - Success message
  */
 const create = async (customCol) => {
   try {
@@ -41,7 +36,7 @@ const create = async (customCol) => {
     `
     await db.query(query, Object.values(customCol))
 
-    return { message: "Custom column is succesfully created." }
+    return "Custom column is succesfully created."
 
   } catch (err) {
     throw new Error(err)
@@ -51,7 +46,7 @@ const create = async (customCol) => {
 /**
  * Deletes a new user specified column and returns the name value of the record
  * @param {number} id - Custom column's id
- * @returns {string}
+ * @returns {Promise<string>} - Name of the deleted column
  */
 const remove = async (id) => {
   try {

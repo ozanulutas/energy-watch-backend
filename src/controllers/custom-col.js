@@ -15,7 +15,7 @@ const getByTblId = async (req, resp) => {
 const create = async (req, resp) => {
   try {
     const result = await customCol.create(req.body)
-    resp.status(201).json(result)
+    resp.status(201).json({ message: result })
 
   } catch (err) {
     resp.json({ message: err.message })
@@ -26,7 +26,7 @@ const create = async (req, resp) => {
 const remove = async (req, resp) => {
   try {
     const result = await customCol.remove(req.params.id)
-    resp.status(201).json(result)
+    resp.status(200).json({ message: result })
 
   } catch (err) {
     resp.json({ message: err.message })

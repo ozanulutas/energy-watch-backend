@@ -3,7 +3,7 @@ const db = require("./db");
 /**
  * Returns all facility records with user sepecified cols
  * @param {array} customCols - Custom column records associated with table
- * @returns {array}
+ * @returns {Promise<array>}
  */
 const getAll = async (customCols) => {
   try {
@@ -23,7 +23,7 @@ const getAll = async (customCols) => {
 /**
  * Creates a new facility record
  * @param {object} facility - Facility column name and values to insert
- * @returns {object}
+ * @returns {Promise<string>}
  */
 const create = async (facility) => {
   try {
@@ -34,7 +34,7 @@ const create = async (facility) => {
     `
     await db.query(query, Object.values(facility))
 
-    return { message: "Facility is succesfully created." }
+    return "Facility is succesfully created."
 
   } catch (err) {
     throw new Error(err)
@@ -45,7 +45,7 @@ const create = async (facility) => {
  * Updates a facility record
  * @param {integer} id - Facility's record id
  * @param {object} facility - Facility column name and values to insert
- * @returns {object}
+ * @returns {Promise<string>}
  */
 const update = async (id, facility) => {
   try {
@@ -56,28 +56,41 @@ const update = async (id, facility) => {
     `
     await db.query(query, [...Object.values(facility), id])
 
-    return { message: "Facility is succesfully updated." }
+    return "Facility is succesfully updated."
 
   } catch (err) {
     throw new Error(err)
   }
 }
 
-// const remove = async (id) => {
+/**
+ * Removes a facility record
+ * @param {integer} id - Facility's record id 
+ * @returns {Promise<string>}
+ */
+const remove = async (id) => {
+  try {
+    const query = "DELETE FROM facility WHERE id = $1"
+    await db.query(query, [id])
 
-// }
+    return "Facility is succesfully deleted."
+
+  } catch (err) {
+    throw new Error(err)
+  }
+}
 
 /**
  * Removes all specificed json keys from custom column at facility records
- * @param {string} jsonKey 
- * @returns {object}
+ * @param {string} jsonKey - Key of a json record
+ * @returns {Promise<string>}
  */
 const removeJsonKeys = async (jsonKey) => {
   try {
     const query = "UPDATE facility SET custom_cols = custom_cols - $1"
     await db.query(query, [jsonKey])
 
-    return { message: "Facility column is succesfully deleted." }
+    return "Facility column is succesfully deleted."
 
   } catch (err) {
     throw new Error(err)
@@ -89,5 +102,6 @@ module.exports = {
   getAll,
   create,
   update,
+  remove,
   removeJsonKeys
 }

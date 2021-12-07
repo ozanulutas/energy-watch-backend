@@ -5,7 +5,7 @@ const { facility } = require("../services")
 const getAll = async (req, resp) => {
   try {
     const result = await facility.getAll()
-    resp.status(200).json({ data: result })
+    resp.status(200).json(result)
 
   } catch (err) {
     resp.json({ message: err.message })
@@ -20,7 +20,7 @@ const create = async (req, resp) => {
   // }
   try {
     const result = await facility.create(req.body)
-    resp.status(201).json(result)
+    resp.status(201).json({ message: result })
 
   } catch (err) {
     resp.json({ message: err.message })
@@ -31,7 +31,18 @@ const create = async (req, resp) => {
 const update = async (req, resp) => {
   try {
     const result = await facility.update(req.params.id, req.body)
-    resp.status(201).json(result)
+    resp.status(200).json({ message: result })
+
+  } catch (err) {
+    resp.json({ message: err.message })
+  }
+}
+
+// Deletes a facility record and sends message
+const remove = async (req, resp) => {
+  try {
+    const result = await facility.remove(req.params.id)
+    resp.status(200).json({ message: result })
 
   } catch (err) {
     resp.json({ message: err.message })
@@ -41,5 +52,6 @@ const update = async (req, resp) => {
 module.exports = {
   getAll,
   create,
-  update
+  update,
+  remove
 }

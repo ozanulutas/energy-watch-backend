@@ -4,7 +4,7 @@ const { prepareCustomColumns } = require("../utils/body")
 /**
  * Calls custom cols for facility table and
  * returns all facility records with user sepecified cols
- * @returns {array}
+ * @returns {Promise<array>}
  */
 const getAll = async () => {
   try {
@@ -20,13 +20,7 @@ const getAll = async () => {
  * Creates a json from custom columns which marked with '+' sign
  * Then calls for create the record
  * @param {object} body - Column name and values to insert
- * @param {string} body.name - Facility's name
- * @param {date} body.membership_start_date - Facility's membership start date
- * @param {date} body.membership_end_date - Facility's membership end date
- * @param {integer} body.employees - Facility's number of employees
- * @param {boolean} body.is_special - Facility's special membership state 
- * @param {object} ...body - User specificied columns for facility (rest)
- * @returns {object} - Returns success message
+ * @returns {Promise<string>} - Returns success message
  */
 const create = async (body) => {
   try {
@@ -42,14 +36,7 @@ const create = async (body) => {
 /**
  * Updates a facility record
  * @param {integer} id - Facility record id to update
- * @param {object} body - Column name and values to insert 
- * @param {string} body.name - Facility's name
- * @param {date} body.membership_start_date - Facility's membership start date
- * @param {date} body.membership_end_date - Facility's membership end date
- * @param {integer} body.employees - Facility's number of employees
- * @param {boolean} body.is_special - Facility's special membership state 
- * @param {object} ...body - User specificied columns for facility (rest)
- * @returns {object} - Returns success message
+ * @returns {Promise<string>} - Returns success message
  */
 const update = async (id, body) => {
   try {
@@ -62,9 +49,24 @@ const update = async (id, body) => {
   }
 }
 
+/**
+ * Removes a facility record
+ * @param {integer} id - Facility record id to delete 
+ * @returns {Promise<string>}
+ */
+const remove = async function (id) {
+  try {
+    return await facility.remove(id)
+
+  } catch (err) {
+    throw new Error(err)
+  }
+}
+
 
 module.exports = {
   getAll,
   create,
-  update
+  update,
+  remove
 }

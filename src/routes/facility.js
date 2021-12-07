@@ -34,6 +34,7 @@ router.post("/", validations, facility.create);
 router.post("/", facility.create);
 router.get("/", facility.getAll);
 router.put("/:id", facility.update);
+router.delete("/:id", facility.remove);
 
 
 module.exports = router;
