@@ -1,4 +1,4 @@
-const db = require("./db");
+const db = require("./pg-client");
 
 /**
  * Returns all facility records with user sepecified cols

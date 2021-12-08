@@ -1,7 +1,7 @@
 require("dotenv").config();
 const express = require("express");
 
-const db = require("./db/db");
+const pg = require("./db/pg-client");
 const mountRoutes = require("./routes");
 
 const app = express();
@@ -9,7 +9,7 @@ const app = express();
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
-db.connect()
+pg.connect()
 
 mountRoutes(app);
 

@@ -1,4 +1,4 @@
-const db = require("./db");
+const db = require("./pg-client");
 
 /**
  * Returns user specified column records by table id
