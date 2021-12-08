@@ -6,8 +6,8 @@ const auth = require("../middlewares/auth");
 
 
 (async () => {
-  router.get("/", auth("admin"), facility.getAll);
-  router.post("/", await validations(), facility.create);
+  router.get("/", auth("user"), facility.getAll);
+  router.post("/", auth("user"), await validations(), facility.create);
   router.get("/:id", facility.getById);
   router.put("/:id", facility.update);
   router.delete("/:id", facility.remove);

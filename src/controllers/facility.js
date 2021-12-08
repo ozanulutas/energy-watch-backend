@@ -30,6 +30,8 @@ const create = async (req, resp) => {
     if (!errors.isEmpty()) {
       return resp.status(400).json({ errors: errors.array() });
     }
+
+    req.body.user_id = req.user.id
     const result = await facility.create(req.body)
     resp.status(201).json({ message: result })
 
