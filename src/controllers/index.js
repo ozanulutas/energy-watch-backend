@@ -5,8 +5,10 @@
  */
 const facility = require("./facility");
 const customCol = require("./custom-col");
+const user = require("./user");
 
 module.exports = {
   facility,
   customCol,
+  user,
 }
