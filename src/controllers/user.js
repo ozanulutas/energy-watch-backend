@@ -1,6 +1,6 @@
 const { user } = require("../services")
 
-// Gets the custom column records by table name and sends it as response
+// Logs user in
 const login = async (req, resp) => {
   try {
     const result = await user.login(req.body)
@@ -11,7 +11,7 @@ const login = async (req, resp) => {
   }
 }
 
-// Creates a custom column record and sends response message
+// Registers a user
 const register = async (req, resp) => {
   try {
     const result = await user.register(req.body)

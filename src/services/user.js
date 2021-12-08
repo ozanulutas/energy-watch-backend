@@ -2,11 +2,16 @@ const { User } = require("../db")
 const bcrypt = require("bcryptjs")
 const jwt = require("jsonwebtoken")
 
+/**
+ * Creates a new user record
+ * @param {object} body 
+ * @returns {promise<string>}
+ */
 const register = async (body) => {
   try {
     const { name, email, password, role } = body
 
-    // TODO: duplicate mail kontrolü
+    // Throws err if user is already exists
     if(await User.findOne({ email })) {
       throw new Error("User is already exists.")
     }
@@ -22,6 +27,11 @@ const register = async (body) => {
   }
 }
 
+/**
+ * Logs user in
+ * @param {object} body 
+ * @returns {promise<string>} 
+ */
 const login = async (body) => {
   try {
     const { email, password } = body
