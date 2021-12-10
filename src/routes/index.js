@@ -2,9 +2,11 @@
 const facility = require("./facility");
 const customCol = require("./custom-col");
 const user = require("./user");
+const userRole = require("./user-role");
 
 module.exports = app => {
   app.use("/facilities", facility)
   app.use("/custom-cols", customCol)
   app.use("/user", user)
+  app.use("/user-roles", userRole)
 }

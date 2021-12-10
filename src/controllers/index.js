@@ -6,9 +6,11 @@
 const facility = require("./facility");
 const customCol = require("./custom-col");
 const user = require("./user");
+const userRole = require("./user-role");
 
 module.exports = {
   facility,
   customCol,
   user,
+  userRole,
 }

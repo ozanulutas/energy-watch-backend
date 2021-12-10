@@ -5,7 +5,7 @@ const { validationResult } = require('express-validator')
 const getAll = async (req, resp) => {
   try {
     const result = await facility.getAll()
-    resp.status(200).json({ data: result })
+    resp.status(200).json({ results: result })
 
   } catch (err) {
     resp.json({ message: err.message })
@@ -16,6 +16,7 @@ const getAll = async (req, resp) => {
 const getById = async (req, resp) => {
   try {
     const result = await facility.getById(req.params.id)
+    // TODO: data keylerini result oalrak değiştir
     resp.status(200).json({ data: result })
 
   } catch (err) {

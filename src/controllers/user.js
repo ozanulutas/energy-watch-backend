@@ -4,7 +4,7 @@ const { user } = require("../services")
 const login = async (req, resp) => {
   try {
     const result = await user.login(req.body)
-    resp.status(200).json({ jwt: result })
+    resp.status(200).json(result)
 
   } catch (err) {
     resp.status(400).json({ message: err.message })

@@ -12,7 +12,7 @@ const register = async (body) => {
     const { name, email, password, role } = body
 
     // Throws err if user is already exists
-    if(await User.findOne({ email })) {
+    if (await User.findOne({ email })) {
       throw new Error("User is already exists.")
     }
 
@@ -37,13 +37,13 @@ const login = async (body) => {
     const { email, password } = body
     const user = await User.findOne({ email })
 
-    if(!user) {
+    if (!user) {
       throw new Error("User is not exists")
     }
 
     const isMatch = await bcrypt.compare(password, user.password)
 
-    if(!isMatch) {
+    if (!isMatch) {
       throw new Error("Invalid password")
     }
     // TODO: usera ait custom columnları çek ve jwt ye ekle
@@ -58,7 +58,8 @@ const login = async (body) => {
 
     const token = jwt.sign(payload, process.env.TOKEN_KEY, { expiresIn: "2h" })
 
-    return token
+
+    return { user: { name: user.name, role: user.role, email, token } }
 
   } catch (err) {
     throw new Error(err.message)
