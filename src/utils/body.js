@@ -10,7 +10,7 @@ function prepareCustomColumns(body) {
   const customCols = {}
 
   for (const key in body) {
-    if (key.includes("_")) {
+    if (key[0] === "_") {
       customCols[key] = body[key]
       delete body[key]
     }
