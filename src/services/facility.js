@@ -33,7 +33,7 @@ const getById = async (id) => {
 }
 
 /**
- * Creates a json from custom columns which marked with '+' sign
+ * Creates a json from custom columns which marked with '_' sign
  * Then calls for create the record
  * @param {object} body - Column name and values to insert
  * @returns {Promise<string>} - Returns success message

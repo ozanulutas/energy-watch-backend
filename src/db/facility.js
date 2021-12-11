@@ -9,7 +9,7 @@ const getAll = async (customCols) => {
   try {
     const result = await db.query(`
       SELECT id, name, membership_start_date, membership_end_date, employees, is_special, user_id
-      ${customCols.map((col) => `, custom_cols ->> '${col.name}' AS +${col.alias}`).join("")}
+      ${customCols.map((col) => `, custom_cols ->> '${col.name}' AS _${col.alias}`).join("")}
       FROM facility ORDER BY id
     `)
 

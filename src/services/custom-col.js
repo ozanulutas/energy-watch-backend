@@ -22,8 +22,8 @@ const getByTblId = async (tblId) => {
 const create = async (body) => {
   try {
     // @TODO: duplicate col name kontrolü
-    // Marks custom column's name with '+' to specifiy it is created by user
-    body.name = `+${body.name}`
+    // Marks custom column's name with '_' to specifiy it is created by user
+    body.name = `_${body.name}`
     return await customCol.create(body)
 
   } catch (err) {
