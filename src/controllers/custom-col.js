@@ -3,8 +3,8 @@ const { customCol } = require("../services")
 // Gets the custom column records by table name and sends it as response
 const getByTblId = async (req, resp) => {
   try {
-    const result = await customCol.getByTblId(req.params.tblId)
-    resp.status(200).json({ data: result })
+    const results = await customCol.getByTblId(req.params.tblId)
+    resp.status(200).json({ results })
 
   } catch (err) {
     resp.json({ message: err.message })
