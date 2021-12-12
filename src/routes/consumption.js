@@ -1,14 +1,14 @@
 const router = require("express").Router();
 const { consumption } = require("../controllers");
-const validations = require("../middlewares/validations/facility");
+const validation = require("../middlewares/validations/consumption");
 const auth = require("../middlewares/auth");
 
 
 (async () => {
-  router.get("/", consumption.getAll);
-  // router.post("/", auth("user"), consumption.create);
-  // router.put("/:id", consumption.update);
-  // router.delete("/:id", consumption.remove);
+  router.get("/", auth("user"), consumption.getAll);
+  router.post("/:id", auth("editor"), consumption.create);
+  router.put("/:id", auth("editor"), consumption.update);
+  router.delete("/:id", auth("admin"), consumption.remove);
 })()
 
 

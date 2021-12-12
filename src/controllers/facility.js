@@ -41,20 +41,6 @@ const create = async (req, resp) => {
   }
 }
 
-// Creates a consumption record for a facility
-const createConsumption = async (req, resp) => {
-  try {
-    // req.body.user_id = req.user.id
-    req.body.facility_id = req.params.id
-    
-    const result = await consumption.create(req.body)
-    resp.status(201).json({ message: result })
-
-  } catch (err) {
-    resp.json({ message: err.message })
-  }
-}
-
 // Updates a facility record and sends message
 const update = async (req, resp) => {
   try {
@@ -62,7 +48,7 @@ const update = async (req, resp) => {
     if (!errors.isEmpty()) {
       return resp.status(400).json({ errors: errors.array() });
     }
-    
+
     const result = await facility.update(req.params.id, req.body)
     resp.status(200).json({ message: result })
 
@@ -71,16 +57,6 @@ const update = async (req, resp) => {
   }
 }
 
-// Updates a facility record and sends message
-const updateConsumption = async (req, resp) => {
-  try {
-    const result = await consumption.update(req.params.consumptionId, req.body)
-    resp.status(200).json({ message: result })
-
-  } catch (err) {
-    resp.json({ message: err.message })
-  }
-}
 
 // Deletes a facility record and sends message
 const remove = async (req, resp) => {
@@ -93,23 +69,10 @@ const remove = async (req, resp) => {
   }
 }
 
-// Deletes a consumption record and sends message
-const removeConsumption = async (req, resp) => {
-  try {
-    const result = await consumption.remove(req.params.consumptionId)
-    resp.status(200).json({ message: result })
-
-  } catch (err) {
-    resp.json({ message: err.message })
-  }
-}
 
 module.exports = {
   getAll,
   create,
-  createConsumption,
-  updateConsumption,
-  removeConsumption,
   update,
   remove,
   getById,
