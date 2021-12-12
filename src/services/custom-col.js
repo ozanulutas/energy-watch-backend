@@ -34,12 +34,13 @@ const create = async (body) => {
 /**
  * Deletes a new user specified column and returns the name value of the record
  * Then uses it's name to remove all json key-value pairs from associated table
- * @param {number} id - Custom column's id
+ * @param {string} name - Custom column's name
+ * @param {number} tblId - Custom column's table id which it belongs
  * @returns {string} - Success message
  */
-const remove = async (id) => {
+const remove = async (name, tblId) => {
   try {
-    const colName = await customCol.remove(id)
+    const colName = await customCol.remove(name, tblId)
     await facility.removeJsonKeys(colName)
 
     return "Custom column is succesfully deleted."

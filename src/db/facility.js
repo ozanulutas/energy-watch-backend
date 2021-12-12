@@ -103,7 +103,7 @@ const remove = async (id) => {
 }
 
 /**
- * Removes all specificed json keys from custom column at facility records
+ * Removes all specificed json keys from custom columns at facility records
  * @param {string} jsonKey - Key of a json record
  * @returns {Promise<string>}
  */

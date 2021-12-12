@@ -45,13 +45,14 @@ const create = async (customCol) => {
 
 /**
  * Deletes a new user specified column and returns the name value of the record
- * @param {number} id - Custom column's id
+ * @param {string} name - Custom column's name
+ * @param {number} tblId - Custom column's table id which it belongs
  * @returns {Promise<string>} - Name of the deleted column
  */
-const remove = async (id) => {
+const remove = async (name, tblId) => {
   try {
-    const query = "DELETE FROM custom_col WHERE id = $1 RETURNING name"
-    const result = await db.query(query, [id])
+    const query = "DELETE FROM custom_col WHERE name = $1 AND tbl_id = $2 RETURNING name"
+    const result = await db.query(query, [name, tblId])
 
     return result.rows[0].name
 
