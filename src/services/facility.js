@@ -1,5 +1,5 @@
 const { facility, customCol } = require("../db")
-const { prepareCustomColumns } = require("../utils/body")
+const { prepareCustomColumns } = require("../utils/helpers/body")
 
 /**
  * Returns all facility records with user sepecified cols
