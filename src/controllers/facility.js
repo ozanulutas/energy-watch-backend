@@ -58,6 +58,11 @@ const createConsumption = async (req, resp) => {
 // Updates a facility record and sends message
 const update = async (req, resp) => {
   try {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return resp.status(400).json({ errors: errors.array() });
+    }
+    
     const result = await facility.update(req.params.id, req.body)
     resp.status(200).json({ message: result })
 
