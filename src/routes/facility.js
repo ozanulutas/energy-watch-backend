@@ -1,10 +1,8 @@
-const express = require("express");
+const router = require("express").Router();
 const { facility } = require("../controllers");
 
 const validation = require("../middlewares/validations/facility");
 const auth = require("../middlewares/auth");
-
-const router = express.Router();
 
 
 (async () => {

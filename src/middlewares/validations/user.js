@@ -10,7 +10,7 @@ const register = [
     .isLength({ min: 8, max: 255 })
     .withMessage("name must be min 8 chars long")
     .isAlpha()
-    .withMessage("name must be min 8 chars long")
+    .withMessage("name must only contain letters")
     .trim()
     .escape(),
   body("email")

@@ -1,5 +1,6 @@
 const router = require("express").Router();
 const { user } = require("../controllers");
+
 const validation = require("../middlewares/validations/user")
 
 router.post("/login", validation.login, user.login);

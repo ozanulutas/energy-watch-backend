@@ -1,4 +1,5 @@
 const { customCol } = require("../services")
+const { validationResult } = require('express-validator')
 
 // Gets the custom column records by table name and sends it as response
 const getByTblId = async (req, resp) => {
@@ -25,6 +26,11 @@ const getAllTypes = (req, resp) => {
 // Creates a custom column record and sends response message
 const create = async (req, resp) => {
   try {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return resp.status(400).json({ errors: errors.array() });
+    }
+    
     const result = await customCol.create(req.body)
     resp.status(201).json({ message: result })
 
