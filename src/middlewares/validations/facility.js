@@ -13,6 +13,7 @@ module.exports = async () => {
       return validationHandlers[col.type](col.name, col.type)
     })
 
+    // Return array with validation functions
     return validations
 
   } catch (error) {

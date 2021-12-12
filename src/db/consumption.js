@@ -8,7 +8,8 @@ const db = require("./pg-client");
 const getAll = async (customCols) => {
   try {
     const result = await db.query(`
-      SELECT consumption.id, consumption.date_range, consumption.start_date, consumption.end_date, consumption.department, consumption.fee, consumption.discounted_price, consumption.consumption, facility.name as facility_name
+      SELECT consumption.id, consumption.date_range, consumption.start_date, consumption.end_date, consumption.department, 
+      consumption.fee, consumption.discounted_price, consumption.consumption, consumption.facility_id, facility.name as facility_name
       ${customCols.map((col) => `, consumption.custom_cols ->> '${col.name}' AS ${col.name}`).join("")}
       FROM consumption JOIN facility ON consumption.facility_id = facility.id
       ORDER BY id

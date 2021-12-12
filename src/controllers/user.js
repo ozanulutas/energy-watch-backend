@@ -1,8 +1,14 @@
 const { user } = require("../services")
+const { validationResult } = require('express-validator')
 
 // Logs user in
 const login = async (req, resp) => {
   try {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return resp.status(400).json({ errors: errors.array() });
+    }
+
     const result = await user.login(req.body)
     resp.status(200).json(result)
 
@@ -14,6 +20,11 @@ const login = async (req, resp) => {
 // Registers a user
 const register = async (req, resp) => {
   try {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return resp.status(400).json({ errors: errors.array() });
+    }
+
     const result = await user.register(req.body)
     resp.status(201).json({ message: result })
 
