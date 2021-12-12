@@ -1,5 +1,5 @@
 const db = require("./pg-client");
-
+const columnTypes = require("../utils/data/column-types")
 /**
  * Returns user specified column records by table id
  * @param {int} tblId 
@@ -25,11 +25,9 @@ const getByTblId = async (tblId) => {
  * Gets all custom column types
  * @returns {array}
  */
-const getAllTypes = async (tblId) => {
+const getAllTypes = () => {
   try {
-    
-
-    return result
+    return columnTypes
 
   } catch (err) {
     throw new Error(err)
