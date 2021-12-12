@@ -3,11 +3,24 @@ const { customCol, facility } = require("../db")
 /**
  * Returns user specified column records by table id
  * @param {int} tblId 
- * @returns {array} - Record
+ * @returns {array} - Records
  */
 const getByTblId = async (tblId) => {
   try {
     return await customCol.getByTblId(tblId)
+
+  } catch (err) {
+    throw new Error(err)
+  }
+}
+
+/**
+ * Returns user specified column records by table id
+ * @returns {array} - Records
+ */
+const getAllTypes = () => {
+  try {
+    return customCol.getAllTypes()
 
   } catch (err) {
     throw new Error(err)
@@ -53,6 +66,7 @@ const remove = async (name, tblId) => {
 
 module.exports = {
   getByTblId,
+  getAllTypes,
   create,
   remove,
 }

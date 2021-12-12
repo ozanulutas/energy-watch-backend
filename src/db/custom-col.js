@@ -22,6 +22,21 @@ const getByTblId = async (tblId) => {
 }
 
 /**
+ * Gets all custom column types
+ * @returns {array}
+ */
+const getAllTypes = async (tblId) => {
+  try {
+    
+
+    return result
+
+  } catch (err) {
+    throw new Error(err)
+  }
+}
+
+/**
  * Creates a new user specified column
  * @param {object} customCol - Column name and values to insert
  * @returns {Promise<string>} - Success message
@@ -64,6 +79,7 @@ const remove = async (name, tblId) => {
 
 module.exports = {
   getByTblId,
+  getAllTypes,
   create,
   remove
 }

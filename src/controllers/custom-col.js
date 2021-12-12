@@ -11,6 +11,17 @@ const getByTblId = async (req, resp) => {
   }
 }
 
+// Gets all available custom column types
+const getAllTypes = (req, resp) => {
+  try {
+    const results = customCol.getAllTypes()
+    resp.status(200).json({ results })
+
+  } catch (err) {
+    resp.json({ message: err.message })
+  }
+}
+
 // Creates a custom column record and sends response message
 const create = async (req, resp) => {
   try {
@@ -36,6 +47,7 @@ const remove = async (req, resp) => {
 
 module.exports = {
   getByTblId,
+  getAllTypes,
   create,
   remove,
 }
