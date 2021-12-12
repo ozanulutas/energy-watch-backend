@@ -1,32 +1,16 @@
-const { facility, customCol } = require("../db")
+const { consumption, customCol } = require("../db")
 const { prepareCustomColumns } = require("../utils/helpers/body")
 
 /**
- * Returns all facility records with user sepecified cols
+ * Returns all consumption records with user sepecified cols
  * @returns {Promise<array>}
  */
 const getAll = async () => {
   try {
     // Calls custom cols for facility table
-    const customCols = await customCol.getByTblId(1)
+    const customCols = await customCol.getByTblId(2)
 
-    return await facility.getAll(customCols)
-
-  } catch (err) {
-    throw new Error(err)
-  }
-}
-
-/**
- * Gets a facility record by id
- * @param {integer} id - Facility record id
- * @returns {Promise<object>}
- */
-const getById = async (id) => {
-  try {
-    // Calls custom cols for facility table
-    const customCols = await customCol.getByTblId(1)
-    return await facility.getById(id, customCols)
+    return await consumption.getAll(customCols)
 
   } catch (err) {
     throw new Error(err)
@@ -42,23 +26,23 @@ const getById = async (id) => {
 const create = async (body) => {
   try {
     body.custom_cols = prepareCustomColumns(body)
-    return await facility.create(body)
-
+    return await consumption.create(body)
+    
   } catch (err) {
     throw new Error(err)
   }
 }
 
 /**
- * Updates a facility record
- * @param {integer} id - Facility record id to update
+ * Updates a consumption record
+ * @param {integer} id - Consumption record id to update
  * @returns {Promise<string>} - Returns success message
  */
 const update = async (id, body) => {
   try {
     body.custom_cols = prepareCustomColumns(body)
 
-    return await facility.update(id, body)
+    return await consumption.update(id, body)
 
   } catch (err) {
     throw new Error(err)
@@ -66,13 +50,13 @@ const update = async (id, body) => {
 }
 
 /**
- * Removes a facility record
- * @param {integer} id - Facility record id to delete 
+ * Removes a consumption record
+ * @param {integer} id - Consumption record id to delete 
  * @returns {Promise<string>}
  */
 const remove = async function (id) {
   try {
-    return await facility.remove(id)
+    return await consumption.remove(id)
 
   } catch (err) {
     throw new Error(err)
@@ -85,5 +69,4 @@ module.exports = {
   create,
   update,
   remove,
-  getById
 }

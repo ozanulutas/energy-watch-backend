@@ -1,10 +1,10 @@
-const { facility, consumption } = require("../services")
+const { consumption } = require("../services")
 const { validationResult } = require('express-validator')
 
-// Gets the facility records and sends it as response
+// Gets all consumption records and sends it as response
 const getAll = async (req, resp) => {
   try {
-    const result = await facility.getAll()
+    const result = await consumption.getAll()
     resp.status(200).json({ results: result })
 
   } catch (err) {
@@ -41,35 +41,10 @@ const create = async (req, resp) => {
   }
 }
 
-// Creates a consumption record for a facility
-const createConsumption = async (req, resp) => {
-  try {
-    // req.body.user_id = req.user.id
-    req.body.facility_id = req.params.id
-    
-    const result = await consumption.create(req.body)
-    resp.status(201).json({ message: result })
-
-  } catch (err) {
-    resp.json({ message: err.message })
-  }
-}
-
 // Updates a facility record and sends message
 const update = async (req, resp) => {
   try {
     const result = await facility.update(req.params.id, req.body)
-    resp.status(200).json({ message: result })
-
-  } catch (err) {
-    resp.json({ message: err.message })
-  }
-}
-
-// Updates a facility record and sends message
-const updateConsumption = async (req, resp) => {
-  try {
-    const result = await consumption.update(req.params.consumptionId, req.body)
     resp.status(200).json({ message: result })
 
   } catch (err) {
@@ -88,23 +63,9 @@ const remove = async (req, resp) => {
   }
 }
 
-// Deletes a consumption record and sends message
-const removeConsumption = async (req, resp) => {
-  try {
-    const result = await consumption.remove(req.params.consumptionId)
-    resp.status(200).json({ message: result })
-
-  } catch (err) {
-    resp.json({ message: err.message })
-  }
-}
-
 module.exports = {
   getAll,
   create,
-  createConsumption,
-  updateConsumption,
-  removeConsumption,
   update,
   remove,
   getById,

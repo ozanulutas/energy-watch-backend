@@ -9,7 +9,7 @@ const getAll = async (customCols) => {
   try {
     const result = await db.query(`
       SELECT id, name, membership_start_date, membership_end_date, employees, is_special, user_id
-      ${customCols.map((col) => `, custom_cols ->> '${col.name}' AS _${col.alias}`).join("")}
+      ${customCols.map((col) => `, custom_cols ->> '${col.name}' AS ${col.name}`).join("")}
       FROM facility ORDER BY id
     `)
 
@@ -76,6 +76,9 @@ const update = async (id, facility) => {
       SET ${cols.map((col, i) => `${col} = $${i + 1}`).join(", ")} 
       WHERE id = $${cols.length + 1}
     `
+    // UPDATE facility 
+    //   SET id = $1, name = $2, membership_start_date = $3, membership_end_date = $4, employees = $5, is_special = $6, user_id = $7, custom_cols = $8
+    //   WHERE id = $9
     await db.query(query, [...Object.values(facility), id])
 
     return "Facility is succesfully updated."

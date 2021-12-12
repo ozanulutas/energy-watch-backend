@@ -36,7 +36,7 @@ const create = async (req, resp) => {
 // Removes a custom column with its records from associated table and sends response message
 const remove = async (req, resp) => {
   try {
-    const result = await customCol.remove(req.params.id, req.params.tblId)
+    const result = await customCol.remove(req.params.colName, req.params.tblId)
     resp.status(200).json({ message: result })
 
   } catch (err) {
