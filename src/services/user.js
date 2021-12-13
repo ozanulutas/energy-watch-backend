@@ -56,17 +56,21 @@ const login = async (body) => {
       }
     }
 
-    const token = jwt.sign(payload, process.env.TOKEN_KEY, { expiresIn: "2h" })
+    const token = jwt.sign(
+      payload, 
+      process.env.TOKEN_KEY, 
+      // { expiresIn: "2h" }
+    )
 
 
-    return { 
-      user: { 
-        id: user.id, 
-        name: user.name, 
-        role: user.role, 
-        email: user.email, 
-        token 
-      } 
+    return {
+      user: {
+        id: user.id,
+        name: user.name,
+        role: user.role,
+        email: user.email,
+        token
+      }
     }
 
   } catch (err) {

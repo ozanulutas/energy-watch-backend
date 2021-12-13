@@ -9,6 +9,7 @@ module.exports = async () => {
   try {
     // Gets user specificied cols
     const customCols = await customCol.getByTblId(1)
+    console.log(customCols); 
 
     // Prepares an array of validation handlers
     const validations = customCols.map(col => {
@@ -27,7 +28,7 @@ module.exports = async () => {
         .isEmpty()
         .withMessage("membership_start_date is required")
         // .isDate()
-        .withMessage("membership_start_date type must be date and format must be 'YYYY-MM-DD'")
+        // .withMessage("membership_start_date type must be date and format must be 'YYYY-MM-DD'")
         .trim()
         .escape(),
       body("membership_end_date")
@@ -35,7 +36,7 @@ module.exports = async () => {
         .isEmpty()
         .withMessage("membership_end_date is required")
         // .isDate()
-        .withMessage("membership_end_date type must be date and format must be 'YYYY-MM-DD'")
+        // .withMessage("membership_end_date type must be date and format must be 'YYYY-MM-DD'")
         .trim()
         .escape(),
       body("employees")

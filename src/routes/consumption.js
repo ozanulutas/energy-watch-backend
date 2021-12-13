@@ -1,5 +1,6 @@
 const router = require("express").Router();
 const { consumption } = require("../controllers");
+
 const validation = require("../middlewares/validations/consumption");
 const auth = require("../middlewares/auth");
 
