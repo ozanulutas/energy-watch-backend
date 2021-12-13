@@ -26,7 +26,7 @@ module.exports = async () => {
         .not()
         .isEmpty()
         .withMessage("start_date is required")
-        .isDate()
+        // .isDate()
         .withMessage("start_date type must be date and format must be 'YYYY-MM-DD'")
         .trim()
         .escape(),
@@ -34,7 +34,7 @@ module.exports = async () => {
         .not()
         .isEmpty()
         .withMessage("end_date is required")
-        .isDate()
+        // .isDate()
         .withMessage("end_date type must be date and format must be 'YYYY-MM-DD'")
         .trim()
         .escape(),
