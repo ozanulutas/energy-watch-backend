@@ -9,7 +9,6 @@ module.exports = async () => {
   try {
     // Gets user specificied cols
     const customCols = await customCol.getByTblId(2)
-    console.log(customCols); 
 
     // Prepares an array of validation handlers
     const validations = customCols.map(col => {
