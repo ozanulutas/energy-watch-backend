@@ -33,8 +33,42 @@ const register = async (req, resp) => {
   }
 }
 
+// Updates user settings
+const updateSettings = async (req, resp) => {
+  try {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return resp.status(400).json({ errors: errors.array() });
+    }
+
+    const result = await user.updateSettings(req.params.id, req.body)
+    resp.status(200).json(result)
+
+  } catch (err) {
+    resp.status(400).json({ message: err.message })
+  }
+}
+
+// Updates user password
+const updatePassword = async (req, resp) => {
+  try {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return resp.status(400).json({ errors: errors.array() });
+    }
+
+    const result = await user.updatePassword(req.params.id, req.body)
+    resp.status(200).json({ message: result })
+
+  } catch (err) {
+    resp.status(400).json({ message: err.message })
+  }
+}
+
 
 module.exports = {
   login,
   register,
+  updateSettings,
+  updatePassword,
 }

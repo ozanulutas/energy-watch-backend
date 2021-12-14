@@ -1,6 +1,7 @@
 const { User } = require("../db")
 const bcrypt = require("bcryptjs")
 const jwt = require("jsonwebtoken")
+const { addListener } = require("../db/user")
 
 /**
  * Creates a new user record
@@ -57,8 +58,8 @@ const login = async (body) => {
     }
 
     const token = jwt.sign(
-      payload, 
-      process.env.TOKEN_KEY, 
+      payload,
+      process.env.TOKEN_KEY,
       // { expiresIn: "2h" }
     )
 
@@ -78,7 +79,72 @@ const login = async (body) => {
   }
 }
 
+/**
+ * Updates user settings
+ * @param {string} id - User id
+ * @param {object} body 
+ * @returns {promise<string>}
+ */
+const updateSettings = async (id, body) => {
+  try {
+    const { name, role } = body
+    const user = await User.findOne({ _id: id })
+
+    // Throws err if user is already exists
+    if (!user) {
+      throw new Error("User does not exists.")
+    }
+
+    user.name = name
+    user.role = role
+
+    await user.save()
+
+    return {
+      message: "User settings are successfully updated.",
+      user: {
+        name: user.name,
+        role: user.role,
+      }
+    }
+
+  } catch (err) {
+    throw new Error(err.message)
+  }
+}
+
+/**
+ * Updates user settings
+ * @param {string} id - User id
+ * @param {object} body 
+ * @returns {promise<string>}
+ */
+const updatePassword = async (id, body) => {
+  try {
+    let { password } = body
+    const user = await User.findOne({ _id: id })
+
+    // Throws err if user is already exists
+    if (!user) {
+      throw new Error("User does not exists.")
+    }
+
+    password = await bcrypt.hash(password, 10)
+
+    user.password = password
+
+    await user.save()
+
+    return  "User password is successfully updated."
+
+  } catch (err) {
+    throw new Error(err.message)
+  }
+}
+
 module.exports = {
   register,
-  login
+  login,
+  updateSettings,
+  updatePassword
 }
