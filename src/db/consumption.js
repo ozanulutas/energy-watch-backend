@@ -23,6 +23,29 @@ const getAll = async (customCols) => {
 }
 
 /**
+ * Returns all consumption records belongs to one facility with user sepecified cols 
+ * @param {array} customCols - Custom column records associated with table
+ * @returns {Promise<array>}
+ */
+const getByFacilityId = async (facilityId, customCols) => {
+  try {
+    const query = `
+      SELECT consumption.id, consumption.date_range, consumption.start_date, consumption.end_date, consumption.department, 
+      consumption.fee, consumption.discounted_price, consumption.consumption, consumption.facility_id, facility.name as facility_name
+      ${customCols.map((col) => `, consumption.custom_cols ->> '${col.name}' AS ${col.name}`).join("")}
+      FROM consumption JOIN facility ON consumption.facility_id = facility.id
+      WHERE facility_id = $1 ORDER BY id
+    `
+    const result = await db.query(query, [facilityId])
+
+    return result.rows
+
+  } catch (err) {
+    throw new Error(err)
+  }
+}
+
+/**
  * Creates a new consumption record
  * @param {object} consumption - Consumption column name and values to insert
  * @returns {Promise<string>}
@@ -107,5 +130,6 @@ module.exports = {
   create,
   update,
   remove,
-  removeJsonKeys
+  removeJsonKeys,
+  getByFacilityId
 }

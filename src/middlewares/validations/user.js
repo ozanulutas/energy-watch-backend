@@ -71,8 +71,10 @@ const updateSettings = [
     .withMessage("name is required")
     .isLength({ min: 8, max: 255 })
     .withMessage("name must be min 8 chars long")
-    .isAlpha()
-    .withMessage("name must only contain letters")
+    // .isAlpha()
+    .not()
+    .matches(/[0-9]/)
+    .withMessage("name must not contain numbers")
     .trim()
     .escape(),
   body("role")

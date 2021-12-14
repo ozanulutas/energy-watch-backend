@@ -1,10 +1,22 @@
 const { consumption } = require("../services")
 const { validationResult } = require('express-validator')
 
+
 // Gets all consumption records and sends it as response
 const getAll = async (req, resp) => {
   try {
     const result = await consumption.getAll()
+    resp.status(200).json({ results: result })
+
+  } catch (err) {
+    resp.json({ message: err.message })
+  }
+}
+
+// Gets all consumption records belongs to one facility
+const getByFacilityId = async (req, resp) => {
+  try {
+    const result = await consumption.getByFacilityId(req.params.facilityId)
     resp.status(200).json({ results: result })
 
   } catch (err) {
@@ -64,4 +76,5 @@ module.exports = {
   create,
   update,
   remove,
+  getByFacilityId
 }

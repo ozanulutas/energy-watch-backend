@@ -16,6 +16,22 @@ const getAll = async () => {
     throw new Error(err)
   }
 }
+/**
+ * Returns all consumption records belongs to one facility with user sepecified cols
+ * @param {object} body - Column name and values to insert
+ * @returns {Promise<array>}
+ */
+const getByFacilityId = async (facilityId) => {
+  try {
+    // Calls custom cols for facility table
+    const customCols = await customCol.getByTblId(2)
+
+    return await consumption.getByFacilityId(facilityId, customCols)
+
+  } catch (err) {
+    throw new Error(err)
+  }
+}
 
 /**
  * Creates a json from custom columns which marked with '_' sign
@@ -69,4 +85,5 @@ module.exports = {
   create,
   update,
   remove,
+  getByFacilityId,
 }
