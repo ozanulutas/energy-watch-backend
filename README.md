@@ -27,8 +27,9 @@ This is the backend of Energy Watch project which watches the energy consumption
 
 - Performs basic CRUD operations with MongoDB and PostgreSQL. MongoDB is used for recording users and performing authorization. PostgreSQL is used for recording facility and consumption info.
 - User authentication and authorization is needed and proivded with JWT.
-- User roles are; Admin (read, write, delete), Editor (read, write), User(write).
+- **User roles are; Admin (read, write, delete), Editor (read, write), User(write).**
 - Users is allowed to create new table columns. It is achived by holding user specified custom fields in a single JSON type column in each table. It is not preferred for the user to change the table schema by altering table as it is not a useful method.
+- **Only user created custom columns can be deleted.**
 - Custom column's meta info is kept in another table. Dynamic validation is provided by this table's records.
 
 ## API
