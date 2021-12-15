@@ -51,7 +51,7 @@ module.exports = async () => {
         .isEmpty()
         .withMessage("is_special is required")
         .isBoolean()
-        .withMessage("is_special type must be date")
+        .withMessage("is_special type must be boolean")
         .trim()
         .escape(),
     ]
