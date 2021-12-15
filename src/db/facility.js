@@ -10,9 +10,8 @@ const getAll = async (customCols) => {
     const result = await db.query(`
       SELECT id, name, membership_start_date, membership_end_date, employees, is_special, user_id
       ${customCols.map((col) => `, custom_cols ->> '${col.name}' AS ${col.name}`).join("")}
-      FROM facility ORDER BY id limit 5 offset 5
+      FROM facility ORDER BY id
     `)
-    console.log(result);
     return result.rows
 
   } catch (err) {
