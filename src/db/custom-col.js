@@ -1,5 +1,7 @@
 const db = require("./pg-client");
 const columnTypes = require("../utils/data/column-types")
+
+
 /**
  * Returns user specified column records by table id
  * @param {int} tblId 
@@ -15,6 +17,24 @@ const getByTblId = async (tblId) => {
     `, [tblId])
 
     return result.rows
+
+  } catch (err) {
+    throw new Error(err)
+  }
+}
+
+/**
+ * Returns user specified column records by table id and col name
+ * @param {int} tblId 
+ * @param {string} name - col name
+ * @returns {Promise<array>}
+ */
+const countByTblIdAndName = async (tblId, name) => {
+  try {
+    const query = "SELECT COUNT(*) FROM custom_col JOIN tbl ON tbl.id = custom_col.tbl_id WHERE tbl.id = $1 AND custom_col.name = $2"
+    const result = await db.query(query, [tblId, name])
+
+    return result.rows[0]
 
   } catch (err) {
     throw new Error(err)
@@ -79,5 +99,6 @@ module.exports = {
   getByTblId,
   getAllTypes,
   create,
-  remove
+  remove,
+  countByTblIdAndName
 }

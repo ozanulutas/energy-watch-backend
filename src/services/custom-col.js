@@ -34,9 +34,15 @@ const getAllTypes = () => {
  */
 const create = async (body) => {
   try {
-    // @TODO: duplicate col name kontrolü
     // Marks custom column's name with '_' to specifiy it is created by user
     body.name = `_${body.name}`
+
+    // Checks if col name is duplicate
+    const { count: colCount } = await customCol.countByTblIdAndName(body.tbl_id, body.name)
+    if (colCount > 0) {
+      throw new Error("Duplicate column names are not allowed.")
+    }
+
     return await customCol.create(body)
 
   } catch (err) {

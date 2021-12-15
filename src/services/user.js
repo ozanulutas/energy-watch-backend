@@ -47,7 +47,6 @@ const login = async (body) => {
     if (!isMatch) {
       throw new Error("Invalid password")
     }
-    // TODO: usera ait custom columnları çek ve jwt ye ekle
 
     const payload = {
       user: {

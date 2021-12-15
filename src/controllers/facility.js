@@ -1,4 +1,4 @@
-const { facility, consumption } = require("../services")
+const { facility } = require("../services")
 const { validationResult } = require('express-validator')
 
 // Gets the facility records and sends it as response
@@ -16,8 +16,7 @@ const getAll = async (req, resp) => {
 const getById = async (req, resp) => {
   try {
     const result = await facility.getById(req.params.id)
-    // TODO: data keylerini result oalrak değiştir
-    resp.status(200).json({ data: result })
+    resp.status(200).json({ results: result })
 
   } catch (err) {
     resp.json({ message: err.message })
