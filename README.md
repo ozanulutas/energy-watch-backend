@@ -2,7 +2,7 @@
 
 # Energy Watch
 
-:bomb::boom: [Project Link](https://energy-watch-frontend.vercel.app/)
+:zap::boom: [Project Link](https://energy-watch-frontend.vercel.app/)
 
 This is the backend of Energy Watch project which watches the energy consumption of facilities and performs basic CRUD operations with MongoDB and PostgreSQL. 
 
